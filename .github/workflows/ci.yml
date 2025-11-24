@@ -30,25 +30,27 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build JARs
-        run: |
-          mvn clean package -DskipTests
+
+
 
       - name: Build Api Gateway
         working-directory: ds-api-gateway
         run: |
+          mvn clean package -DskipTests
           docker build -t $DOCKERHUB_USERNAME/ds-api-gateway:latest .
           docker push $DOCKERHUB_USERNAME/ds-api-gateway:latest
 
       - name: Build Account Service
         working-directory: ds-account-service
         run: |
+          mvn clean package -DskipTests
           docker build -t $DOCKERHUB_USERNAME/ds-account-service:latest .
           docker push $DOCKERHUB_USERNAME/ds-account-service:latest
 
       - name: Build Client Service
         working-directory: ds-client-service
         run: |
+          mvn clean package -DskipTests
           docker build -t $DOCKERHUB_USERNAME/ds-client-service:latest .
           docker push $DOCKERHUB_USERNAME/ds-client-service:latest
 
